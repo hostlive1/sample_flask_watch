@@ -1,0 +1,179 @@
+magikeye@mke:~$ cd flask/dockerfile/
+magikeye@mke:~/flask/dockerfile$ build docker -t flask_watch:0.0.1.RELEASE .
+
+Command 'build' not found, did you mean:
+
+  command 'bwild' from deb bacula-director (9.4.2-2ubuntu5)
+  command 'pbuild' from deb pbuilder-scripts (22)
+  command 'xbuild' from deb mono-xbuild (6.8.0.105+dfsg-2)
+  command 'sbuild' from deb sbuild (0.79.0-1ubuntu1)
+  command 'obuild' from deb ocaml-obuild (0.1.10-3)
+  command 'guild' from deb guile-2.2-dev (2.2.7+1-4)
+  command 'guild' from deb guile-2.0-dev (2.0.13+1-5.4)
+  command 'guild' from deb guile-3.0-dev (3.0.1+1-2)
+  command 'buildd' from deb buildd (0.79.0-1ubuntu1)
+
+Try: sudo apt install <deb name>
+
+magikeye@mke:~/flask/dockerfile$ docker build -t flask_watch:0.0.1.RELEASE .           
+Sending build context to Docker daemon  7.168kB
+Step 1/6 : FROM python:3-alpine3.15
+3-alpine3.15: Pulling from library/python
+9621f1afde84: Pull complete 
+7dcbe358f5cf: Pull complete 
+c202fc059ff2: Pull complete 
+029c086462bc: Pull complete 
+28eba1c740bb: Pull complete 
+Digest: sha256:1567c44f47c8136752ee4301be2e94130a5f8e1fb7a0e737ccac28fb8f66fd0f
+Status: Downloaded newer image for python:3-alpine3.15
+ ---> c692f3b79c36
+Step 2/6 : WORKDIR /app
+ ---> Running in 6f24033b5cbb
+Removing intermediate container 6f24033b5cbb
+ ---> a44623f0f313
+Step 3/6 : COPY . /app
+ ---> f6518fbf346f
+Step 4/6 : RUN pip install -r requirement.txt
+ ---> Running in 011127698cb8
+ERROR: Invalid requirement: '1 flask' (from line 1 of requirement.txt)
+
+[notice] A new release of pip available: 22.3 -> 23.2
+[notice] To update, run: pip install --upgrade pip
+The command '/bin/sh -c pip install -r requirement.txt' returned a non-zero code: 1
+magikeye@mke:~/flask/dockerfile$ docker build -t flask_watch:0.0.1.RELEASE .
+Sending build context to Docker daemon  7.168kB
+Step 1/6 : FROM python:3-alpine3.15
+ ---> c692f3b79c36
+Step 2/6 : WORKDIR /app
+ ---> Using cache
+ ---> a44623f0f313
+Step 3/6 : COPY . /app
+ ---> 2ecad99e6724
+Step 4/6 : RUN pip install -r requirement.txt
+ ---> Running in c5568113c1d5
+Collecting flask
+  Downloading Flask-2.3.2-py3-none-any.whl (96 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 96.9/96.9 kB 1.1 MB/s eta 0:00:00
+Collecting Werkzeug>=2.3.3
+  Downloading Werkzeug-2.3.6-py3-none-any.whl (242 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 242.5/242.5 kB 3.1 MB/s eta 0:00:00
+Collecting Jinja2>=3.1.2
+  Downloading Jinja2-3.1.2-py3-none-any.whl (133 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 133.1/133.1 kB 3.5 MB/s eta 0:00:00
+Collecting itsdangerous>=2.1.2
+  Downloading itsdangerous-2.1.2-py3-none-any.whl (15 kB)
+Collecting click>=8.1.3
+  Downloading click-8.1.6-py3-none-any.whl (97 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 97.9/97.9 kB 3.9 MB/s eta 0:00:00
+Collecting blinker>=1.6.2
+  Downloading blinker-1.6.2-py3-none-any.whl (13 kB)
+Collecting MarkupSafe>=2.0
+  Downloading MarkupSafe-2.1.3-cp311-cp311-musllinux_1_1_x86_64.whl (33 kB)
+Installing collected packages: MarkupSafe, itsdangerous, click, blinker, Werkzeug, Jinja2, flask
+Successfully installed Jinja2-3.1.2 MarkupSafe-2.1.3 Werkzeug-2.3.6 blinker-1.6.2 click-8.1.6 flask-2.3.2 itsdangerous-2.1.2
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+
+[notice] A new release of pip available: 22.3 -> 23.2                                                                                                                                                                                                                          
+[notice] To update, run: pip install --upgrade pip                                                                                                                                                                                                                             
+Removing intermediate container c5568113c1d5
+ ---> 8bdd69ddea9a
+Step 5/6 : EXPOSE 3000
+ ---> Running in f9d818fb5b71
+Removing intermediate container f9d818fb5b71
+ ---> 68f45913d5f0
+Step 6/6 : CMD python ./main.py
+ ---> Running in 5ac3ba10639c
+Removing intermediate container 5ac3ba10639c
+ ---> b00b59b98f43
+Successfully built b00b59b98f43
+Successfully tagged flask_watch:0.0.1.RELEASE
+
+magikeye@mke:~/flask/dockerfile$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+magikeye@mke:~/flask/dockerfile$ docker list
+docker: 'list' is not a docker command.
+See 'docker --help'
+magikeye@mke:~/flask/dockerfile$ docker build -t flask_watch:0.0.1.RELEASE .
+Sending build context to Docker daemon  7.168kB
+Step 1/6 : FROM python:3-alpine3.15
+ ---> c692f3b79c36
+Step 2/6 : WORKDIR /app
+ ---> Using cache
+ ---> a44623f0f313
+Step 3/6 : COPY . /app
+ ---> 06e7030bc573
+Step 4/6 : RUN pip install -r requirement.txt
+ ---> Running in 292b857fdeb7
+Collecting flask
+  Downloading Flask-2.3.2-py3-none-any.whl (96 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 96.9/96.9 kB 1.7 MB/s eta 0:00:00
+Collecting Werkzeug>=2.3.3
+  Downloading Werkzeug-2.3.6-py3-none-any.whl (242 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 242.5/242.5 kB 2.8 MB/s eta 0:00:00
+Collecting Jinja2>=3.1.2
+  Downloading Jinja2-3.1.2-py3-none-any.whl (133 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 133.1/133.1 kB 3.6 MB/s eta 0:00:00
+Collecting itsdangerous>=2.1.2
+  Downloading itsdangerous-2.1.2-py3-none-any.whl (15 kB)
+Collecting click>=8.1.3
+  Downloading click-8.1.6-py3-none-any.whl (97 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 97.9/97.9 kB 3.3 MB/s eta 0:00:00
+Collecting blinker>=1.6.2
+  Downloading blinker-1.6.2-py3-none-any.whl (13 kB)
+Collecting MarkupSafe>=2.0
+  Downloading MarkupSafe-2.1.3-cp311-cp311-musllinux_1_1_x86_64.whl (33 kB)
+Installing collected packages: MarkupSafe, itsdangerous, click, blinker, Werkzeug, Jinja2, flask
+Successfully installed Jinja2-3.1.2 MarkupSafe-2.1.3 Werkzeug-2.3.6 blinker-1.6.2 click-8.1.6 flask-2.3.2 itsdangerous-2.1.2
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+
+[notice] A new release of pip available: 22.3 -> 23.2
+[notice] To update, run: pip install --upgrade pip
+Removing intermediate container 292b857fdeb7
+ ---> 1b0e83cf1980
+Step 5/6 : EXPOSE 3000
+ ---> Running in 0b6b6d52ae69
+Removing intermediate container 0b6b6d52ae69
+ ---> ad27da51b660
+Step 6/6 : CMD python ./main.py
+ ---> Running in f708350182a6
+Removing intermediate container f708350182a6
+ ---> a1568fc0eb66
+Successfully built a1568fc0eb66
+Successfully tagged flask_watch:0.0.1.RELEASE
+magikeye@mke:~/flask/dockerfile$ docker container run -d -p 3000:3000 flask_watch:0.0.1.RELEASE
+94d108d248aeab5ad057c363aab92149707a2734a3e97dfb983f6220c27c67ab
+magikeye@mke:~/flask/dockerfile$ docker container ls
+CONTAINER ID   IMAGE                       COMMAND                  CREATED              STATUS              PORTS                                       NAMES
+94d108d248ae   flask_watch:0.0.1.RELEASE   "/bin/sh -c 'python …"   About a minute ago   Up About a minute   0.0.0.0:3000->3000/tcp, :::3000->3000/tcp   cranky_haibt
+magikeye@mke:~/flask/dockerfile$ docker container stop 94d
+94d
+magikeye@mke:~/flask/dockerfile$ aws ecr get-login-password --region ap-southeast-1 | docker login --username AWS --password-stdin 371070304579.dkr.ecr.ap-southeast-1.amazonaws.com
+WARNING! Your password will be stored unencrypted in /home/magikeye/snap/docker/2893/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
+Login Succeeded
+magikeye@mke:~/flask/dockerfile$ docker tag flask_watch:0.0.1.RELEASE  371070304579.dkr.ecr.ap-southeast-1.amazonaws.com/test_html_file:0.0.1.RELEASE
+magikeye@mke:~/flask/dockerfile$ docker push 371070304579.dkr.ecr.ap-southeast-1.amazonaws.com/test_html_file:latest
+The push refers to repository [371070304579.dkr.ecr.ap-southeast-1.amazonaws.com/test_html_file]
+6a9ff16f2981: Layer already exists 
+3c9d04c9ebd5: Layer already exists 
+434c6a715c30: Layer already exists 
+9fdfd12bc85b: Layer already exists 
+f36897eea34d: Layer already exists 
+1998c5cd2230: Layer already exists 
+b821d93f6666: Layer already exists 
+24839d45ca45: Layer already exists 
+latest: digest: sha256:7ff80cf9ef09a47c95ecf688fe4b244429a0902afcd208b190678e801090eba6 size: 1985
+magikeye@mke:~/flask/dockerfile$ docker push 371070304579.dkr.ecr.ap-southeast-1.amazonaws.com/test_html_file:0.0.1.RELEASE
+The push refers to repository [371070304579.dkr.ecr.ap-southeast-1.amazonaws.com/test_html_file]
+e629f02d14d2: Pushed 
+ee5d740a39f9: Pushed 
+e170e36d3deb: Pushed 
+0c5c99074fa8: Pushed 
+eb71c8b7b3b7: Pushed 
+76d682e14461: Pushed 
+d59c8eb8f9a4: Pushed 
+34d5ebaa5410: Pushed 
+0.0.1.RELEASE: digest: sha256:a1d92e81a351a17e6b0a738324615c99bf006480438ba3266fb5d94c2be68f6d size: 1993
+magikeye@mke:~/flask/dockerfile$ 

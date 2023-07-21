@@ -1,0 +1,12 @@
+Learnt about AWS ECS
+Learnt about Docker
+Installed docker on local machine
+Created simple flask application
+Created Dockerfile with port EXPOSE to 3000
+Build the Dockerfile and generated docker image and tested it whether it is running or not
+Created AWS ECR registry and pushed the generated image to the ECR registry repository
+Created ECS cluster
+Created task definitions for the cluster with launch type EC2 and attached the image URI from ECR repository
+Created services for the container
+Updated the security groups with required ports
+By using the public IP with required port we can see the application running

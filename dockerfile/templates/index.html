@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Digital Watch</title>
+    <script>
+        function updateTime() {
+            var currentTime = new Date();
+            var hours = currentTime.getHours();
+            var minutes = currentTime.getMinutes();
+            var seconds = currentTime.getSeconds();
+
+            // Add leading zeros if needed
+            hours = (hours < 10 ? "0" : "") + hours;
+            minutes = (minutes < 10 ? "0" : "") + minutes;
+            seconds = (seconds < 10 ? "0" : "") + seconds;
+
+            var timeString = hours + ":" + minutes + ":" + seconds;
+
+            document.getElementById('clock').innerHTML = timeString;
+        }
+
+        setInterval(updateTime, 1000); // Update the time every second
+    </script>
+    <style>
+        .container2{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* height: 100vh; */
+            margin-top: 150px;
+        }
+
+        #clock {
+            font-size: 48px;
+            font-weight: bold;
+            border: 1px solid gray;
+            border-radius: 100px;
+            padding: 60px;
+            background-color: rgb(0, 0, 0);
+            color: aliceblue;
+        }
+        .container{
+            margin-top: 100px;
+            text-align: center;
+            color: rgb(0, 0, 0);
+            font-size: 25px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container"><h1>Hello, Welcome to the Simple Flask Application</h1></div>
+    <div class="container2">
+        <div id="clock"></div>
+    </div>
+</body>
+</html>
